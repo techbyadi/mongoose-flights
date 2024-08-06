@@ -19,6 +19,9 @@ const app = express()
 // view engine setup
 app.set('view engine', 'ejs')
 
+//custom middleware
+app.use(methodOverride('_method'))
+
 // basic middleware
 app.use(logger('dev'))
 app.use(express.json())

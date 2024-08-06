@@ -53,9 +53,22 @@ async function show(req, res) {
   }
 }
 
+async function deleteFlight(req, res) {
+  try {
+    //find a flight by and delete it
+    await Flight.findByIdAndDelete(req.params.flightId);
+    //redirect to all flights page
+    res.redirect('/flights');
+  } catch (error) {
+    console.log(error);
+    res.redirect('/flights');
+  }
+}
+
 export{
   newFlight as new,
   create, 
   index, 
-  show
+  show, 
+  deleteFlight as delete
 }

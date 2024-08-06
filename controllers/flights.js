@@ -8,20 +8,38 @@ function newFlight(req, res){
 }
 
 async function create(req, res) {
-
-  //remove empty properties
+  try {
+      //remove empty properties
   for(let key in req.body){
     if(req.body[key]==='') delete req.body[key];
   }
-
   //create entry in DB
   await Flight.create(req.body);
   //redirect page
   res.redirect('/flights/new');
+  } catch (error) {
+    console.log(error);
+    res.redirect('/flights/new');
+  }
+}
 
+async function index(req, res) {
+  try {
+  //add details to the body
+  const flights = await Flight.find({});
+   //render show page
+  res.render('flights/index', {
+    flights,
+    title: 'All Flights'
+  })
+  } catch (error) {
+    console.log(error);
+    res.redirect('/')
+  }
 }
 
 export{
   newFlight as new,
-  create
+  create, 
+  index
 }

@@ -16,7 +16,7 @@ async function create(req, res) {
   //create entry in DB
   await Flight.create(req.body);
   //redirect page
-  res.redirect('/flights/new');
+  res.redirect('/flights/');
   } catch (error) {
     console.log(error);
     res.redirect('/flights/new');

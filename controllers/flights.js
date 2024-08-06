@@ -38,8 +38,24 @@ async function index(req, res) {
   }
 }
 
+async function show(req, res) {
+  try {
+  //fetch details by ID
+  const flight = await Flight.findById(req.params.flightId);
+  //render a show page
+  res.render('flights/show', {
+    flight,
+    title: 'Flight Detail'
+  })
+  } catch (error) {
+    console.log(error);
+    res.redirect('/flights');
+  }
+}
+
 export{
   newFlight as new,
   create, 
-  index
+  index, 
+  show
 }

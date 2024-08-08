@@ -13,6 +13,28 @@
     <div><%= flight.flightNo %></div>
     <div>Departs on: </div>
     <div><%= flight.departs %></div>
+    <% if(flight.tickets.length) { %>
+    <div>Ticket Details </div>
+    <div>
+      <table border>
+        <tr>
+        <th>Seat</th>
+        <th>Price</th>
+      </tr>
+      <% flight.tickets.forEach(ticket => { %>
+        <tr>
+        <td> <%= ticket.seat %></td>
+        <td> $ <%= ticket.price %></td>
+        <td>
+          <form action="/flights/<%= flight._id %>/tickets/<%= ticket._id %>?_method=DELETE" method="POST">
+            <button>X</button>
+          </form>
+        </td>
+        <% }) %>
+      </tr>
+      </table>  
+    </div>
+    <% } %>
   </section>
 
   <h2> Tickets </h2>

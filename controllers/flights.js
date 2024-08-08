@@ -80,6 +80,17 @@ async function addTicket(req, res) {
   }
 }
 
+async function deleteTicket(req, res) {
+  try {
+    const flight = await Flight.findById(req.params.flightId);
+    const ticket = await flight.tickets.id(req.params.ticketId).deleteOne();
+    await flight.save();
+    res.redirect(`/flights/${flight._id}`)
+  } catch (error) {
+    console.log(error);
+    res.redirect(`/flights`)
+  }
+}
 
 export{
   newFlight as new,
@@ -87,5 +98,6 @@ export{
   index, 
   show, 
   deleteFlight as delete,
-  addTicket
+  addTicket,
+  deleteTicket
 }

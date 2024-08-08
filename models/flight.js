@@ -2,6 +2,17 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
+
+const ticketSchema = new Schema({
+  seat: {
+    type: String,
+    match: /[A-F][1-9]\d?/,
+  },
+  price: Number
+}, {
+  timestamps: true
+})
+
 const flightSchema = new Schema({
   airline: {
     type: String,
@@ -22,9 +33,13 @@ const flightSchema = new Schema({
     type: Date,
     default: function(){
       const currentDate = new Date();
-      return currentDate.setFullYear(currentDate.getFullYear() +1);
+      const timezoneOffsetInHours = currentDate.getTimezoneOffset() / 60;
+      currentDate.setHours(currentDate.getHours()-timezoneOffsetInHours);
+      currentDate.setFullYear(currentDate.getFullYear() +1)
+      return currentDate;
     }
   },
+  tickets: [ticketSchema],
 }, 
 {
   timestamps: true

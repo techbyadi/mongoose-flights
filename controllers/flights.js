@@ -68,10 +68,24 @@ async function deleteFlight(req, res) {
   }
 }
 
+async function addTicket(req, res) {
+  try {
+    const flight = await Flight.findById(req.params.flightId);
+    flight.tickets.push(req.body);
+    await flight.save();
+    res.redirect(`/flights/${flight._id}`);
+  } catch (error) {
+    console.log(error);
+    res.redirect('/');
+  }
+}
+
+
 export{
   newFlight as new,
   create, 
   index, 
   show, 
-  deleteFlight as delete
+  deleteFlight as delete,
+  addTicket
 }

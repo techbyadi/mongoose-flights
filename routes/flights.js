@@ -14,4 +14,7 @@ router.get('/:flightId', flightsCtrl.show);
 //DELETE localhost:3000/flights/:flightId
 router.delete('/:flightId', flightsCtrl.delete);
 
+//POST localhost:3000/flights/:flightId/tickets
+router.post('/:flightId/tickets', flightsCtrl.addTicket);
+
 export { router }

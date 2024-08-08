@@ -14,6 +14,17 @@
     <div>Departs on: </div>
     <div><%= flight.departs %></div>
   </section>
+
+  <h2> Tickets </h2>
+  <form action="/flights/<%= flight._id %>/tickets" method="POST" id="ticket-form">
+    <label for="seat-textfield">Seat:</label>
+    <input type="text" id="seat-textfield" name="seat" required pattern="[A-F][1-9]\d?" >
+    <label for="price-textfield">Price:</label>
+    <input type="text" id="price-textfield" name="price">
+
+    <button type="submit">Add Ticket</button>
+  </form>
+
 </main>
   
 <%- include('../partials/footer') %>

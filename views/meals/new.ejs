@@ -1,0 +1,33 @@
+<%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/meals/new.css" />
+<%- include('../partials/nav') %>
+
+<main>
+	<h1><%= title %></h1>
+  
+  <form id="add-meal-form" action="/meals" method="POST">
+    <label for="name-input">Meal</label>
+    <input type="text" name="name" id="name-input">
+    <button type="submit">Add Meal</button>
+  </form>
+
+  <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+    <p style="color: brown;"><%= errorMessage %></p>
+  <% } %>
+  <p>
+    <table border>
+      <th> List of added meals </th>
+      <% meals.forEach(meal => { %>
+      <tr>
+        <td> 
+          <%= meal.name %>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+  </p>
+
+
+</main>
+
+<%- include('../partials/footer') %>

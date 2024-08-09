@@ -1,4 +1,5 @@
 import { Flight } from '../models/flight.js'
+import { Meal } from '../models/meal.js';
 
 
 function newFlight(req, res){
@@ -44,11 +45,13 @@ async function index(req, res) {
 async function show(req, res) {
   try {
   //fetch details by ID
-  const flight = await Flight.findById(req.params.flightId);
+  const flight = await Flight.findById(req.params.flightId).populate('meals');
+  const meals = await Meal.find({_id: {$nin: flight.meals}});
   //render a show page
   res.render('flights/show', {
     flight,
-    title: 'Flight Detail'
+    title: 'Flight Detail',
+    meals
   })
   } catch (error) {
     console.log(error);
@@ -92,6 +95,20 @@ async function deleteTicket(req, res) {
   }
 }
 
+async function addMealToFlight(req, res) {
+  try {
+    const flight = await Flight.findById(req.params.flightId);
+    flight.meals.push(req.body.mealId)
+    await flight.save();
+    console.log(flight);
+    res.redirect(`/flights/${flight._id}`)
+  } catch (error) {
+    console.log(error);
+    res.redirect('/flights');
+  }
+}
+
+
 export{
   newFlight as new,
   create, 
@@ -99,5 +116,6 @@ export{
   show, 
   deleteFlight as delete,
   addTicket,
-  deleteTicket
+  deleteTicket,
+  addMealToFlight
 }

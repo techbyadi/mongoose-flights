@@ -19,4 +19,7 @@ router.post('/:flightId/tickets', flightsCtrl.addTicket);
 
 //DELETE localhost:3000/flights/:flightId/tickets/:ticketId
 router.delete('/:flightId/tickets/:ticketId', flightsCtrl.deleteTicket);
+
+router.post('/:flightId/meals', flightsCtrl.addMealToFlight);
+
 export { router }

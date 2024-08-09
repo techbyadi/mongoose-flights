@@ -37,6 +37,23 @@ section div:nth-child(even) {
   font-weight: bold;
 }
 
+a  {
+  border-radius: 4px;
+  background-color: #b8c0c2;
+  padding: 4px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #424748;
+}
+
+a:visited{
+  color: #424748;
+}
+
+a:hover {
+  background-color: white;
+}
+
 #add-review-form {
   display: grid;
   grid-template-columns: auto auto;

@@ -6,8 +6,11 @@
   <h1><%= title %></h1>
   <section>
     <div>Airline: </div>
-    <div><%= flight.airline %></div>
-    <div>Airport: </div>
+    <div><%= flight.airline %>
+    <a href="/flights/<%= flight._id %>/edit">Edit Flight</a>
+    </div> 
+
+    <div>Airport: </div> 
     <div><%= flight.airport %></div>
     <div>Flight Number: </div>
     <div><%= flight.flightNo %></div>
@@ -20,7 +23,7 @@
       <% flight.meals.forEach(mealName => { %>
         <li><%= mealName.name%></li>
       <% }) %>
-     </ul>
+    </ul>
     </div>
     <div></div>
     <form id="add-meal" action="/flights/<%= flight._id %>/meals" method="POST">

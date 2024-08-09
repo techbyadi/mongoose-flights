@@ -42,6 +42,40 @@ async function index(req, res) {
   }
 }
 
+async function edit(req, res) {
+  try {
+    const flight = await Flight.findById(req.params.flightId);
+    const flightDateFromDB = flight.departs;
+    const timezoneOffsetInHours = flightDateFromDB.getTimezoneOffset() / 60;
+    flightDateFromDB.setHours(flightDateFromDB.getHours()-timezoneOffsetInHours);
+    const departsDate = flightDateFromDB.toISOString().slice(0, 16);
+    res.render('flights/edit', {
+    flight,
+    title: 'Edit Flight',
+    departsDate
+  }) 
+  } catch (error) {
+    console.log(error);
+    res.redirect('/flights')
+    
+  } 
+}
+
+async function update(req, res) {
+  try {
+    const flight = await Flight.findByIdAndUpdate(
+      req.params.flightId,
+      req.body,
+      {new: true}
+    );
+    res.redirect(`/flights/${flight._id}`);
+  } catch (error) {
+    console.log(error);
+    res.redirect('/flights');
+    
+  }
+}
+
 async function show(req, res) {
   try {
   //fetch details by ID
@@ -113,6 +147,8 @@ export{
   newFlight as new,
   create, 
   index, 
+  edit,
+  update,
   show, 
   deleteFlight as delete,
   addTicket,
